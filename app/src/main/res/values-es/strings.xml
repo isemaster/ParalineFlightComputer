@@ -53,6 +53,7 @@ https://baseline.ws/</string>
         <item>Velocidad total</item>
         <item>Relación de planeo</item>
         <item>Navegación</item>
+        <item>Altitud</item>
     </string-array>
     <string-array name="audible_modes_values">
         <item>horizontal_speed</item>
@@ -60,6 +61,7 @@ https://baseline.ws/</string>
         <item>total_speed</item>
         <item>glide_ratio</item>
         <item>navigation</item>
+        <item>altitude</item>
     </string-array>
 
     <!-- Audible settings -->

@@ -5,6 +5,7 @@ import com.platypii.baseline.audible.modes.HorizontalSpeedMode;
 import com.platypii.baseline.audible.modes.NavigationMode;
 import com.platypii.baseline.audible.modes.TotalSpeedMode;
 import com.platypii.baseline.audible.modes.VerticalSpeedMode;
+import com.platypii.baseline.audible.modes.AltitudeMode;
 import com.platypii.baseline.util.Exceptions;
 
 import androidx.annotation.NonNull;
@@ -19,6 +20,7 @@ class AudibleModes {
     private static final AudibleMode total_speed = new TotalSpeedMode();
     private static final AudibleMode glide_ratio = new GlideRatioMode();
     private static final AudibleMode navigation = new NavigationMode();
+    private static final AudibleMode altitude = new AltitudeMode();
 
     @NonNull
     public static AudibleMode get(@NonNull String audibleMode) {
@@ -33,6 +35,8 @@ class AudibleModes {
                 return glide_ratio;
             case "navigation":
                 return navigation;
+            case "altitude":
+                return altitude;
             default:
                 Exceptions.report(new IllegalStateException("Invalid audible mode " + audibleMode));
                 return horizontal_speed;
