@@ -161,4 +161,6 @@ https://baseline.ws/help#app-profiles
     <!-- Errors -->
     <string name="error_open_browser">Failed to open browser</string>
 
+    <string name="altitude_label">Altitude</string>
+
 </resources>

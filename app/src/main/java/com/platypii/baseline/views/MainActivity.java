@@ -10,6 +10,7 @@ import com.platypii.baseline.views.altimeter.AltimeterActivity;
 import com.platypii.baseline.views.laser.LaserActivity;
 import com.platypii.baseline.views.map.MapActivity;
 import com.platypii.baseline.views.tracks.TrackListActivity;
+import com.platypii.baseline.util.Convert;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -36,8 +37,11 @@ public class MainActivity extends BaseActivity {
     // Periodic UI updates
     private final Handler handler = new Handler();
     private final int clockUpdateInterval = 48; // milliseconds
+    private final int altitudeUpdateInterval = 100; // milliseconds
     @Nullable
     private Runnable clockRunnable;
+    @Nullable
+    private Runnable altitudeRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +62,9 @@ public class MainActivity extends BaseActivity {
         binding.tracks.setOnClickListener(this::clickTracks);
         binding.profiles.setOnClickListener(this::clickLasers);
         binding.settings.setOnClickListener(this::clickSettings);
+
+        // Start altitude updates
+        startAltitudeUpdates();
     }
 
     @Override
@@ -217,6 +224,21 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    private void startAltitudeUpdates() {
+        altitudeRunnable = new Runnable() {
+            public void run() {
+                updateAltitude();
+                handler.postDelayed(this, altitudeUpdateInterval);
+            }
+        };
+        handler.post(altitudeRunnable);
+    }
+
+    private void updateAltitude() {
+        final double altitude = Services.alti.altitudeAGL();
+        binding.infoPanel.altitude.setText(Convert.altitude(altitude));
+    }
+
     // Listen for events
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onLoggingEvent(LoggingEvent event) {
@@ -234,6 +256,10 @@ public class MainActivity extends BaseActivity {
         if (clockRunnable != null) {
             handler.removeCallbacks(clockRunnable);
             clockRunnable = null;
+        }
+        if (altitudeRunnable != null) {
+            handler.removeCallbacks(altitudeRunnable);
+            altitudeRunnable = null;
         }
         EventBus.getDefault().unregister(this);
     }

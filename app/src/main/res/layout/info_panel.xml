@@ -14,6 +14,17 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
 
+    <TextView
+        android:id="@+id/altitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="36sp"
+        android:textIsSelectable="false"
+        android:text="@string/altitude_label"
+        android:layout_below="@id/clock"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/statusPanel"
         android:name="com.platypii.baseline.views.status.SignalStatus"
